@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="login-wrapper">
     <div id="pageContain">
 
       <div class="page page1 current">
@@ -54,6 +54,7 @@ import FullPage from '@/utils/fullPage.js'
 import vidbg from '@/utils/vidbg.js'
 import '@/styles/vidbg.css';
 export default {
+  name: 'login',
   data() {
     return {
 
@@ -97,7 +98,8 @@ export default {
       });
     },
     initVidbg() {
-       vidbg(document.body, [
+      //  vidbg(document.body, [
+       vidbg(document.getElementById('login-wrapper'), [
           {src: 'http://cf.cdn.vid.ly/3l6g3m/webm.webm', type: 'webm'},
           {src: 'http://cf.cdn.vid.ly/3l6g3m/mp4.mp4', type: 'mp4'},
           {src: 'http://cf.cdn.vid.ly/3l6g3m/ogv.ogv', type: 'ogg'}

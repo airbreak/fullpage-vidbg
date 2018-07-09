@@ -1,21 +1,30 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Video from '@/pages/video'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/login',
+      name: 'login',
+      component: () => import('@/pages/login')
     },
     {
-      path: '/video',
-      name: 'video',
-      component: Video
-    }
+      path: '/404',
+      name: '404',
+      component: () => import('@/pages/404')
+    },
+    {
+      path: '/',
+      name: 'default',
+      redirect: 'home'
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: () => import('@/pages/home')
+    },
+    { path: '*', redirect: '/404', hidden: true }
   ]
 })
