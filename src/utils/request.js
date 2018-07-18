@@ -11,7 +11,7 @@ const service = axios.create({
 //
 // request 拦截器
 service.interceptors.request.use(config => {
-  config.headers['X-Token'] = getToken()
+  // config.headers['X-Token'] = getToken()
   return config
 }, error => {
   console.log(error)

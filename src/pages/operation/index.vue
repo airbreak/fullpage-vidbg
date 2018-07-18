@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-box">
-    <iframe v-show="loadedFlag" v-loading="!loadedFlag" class="iframe-box" src="https://devd.bmkp.cn/enterpriseVehicle/index.html#/index" ref="iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="100%" height="100%" @load="vueFunc"></iframe>
+    <iframe v-show="loadedFlag" v-loading="!loadedFlag" class="iframe-box" src="http://imayi.me" ref="iframe" frameborder="0"  marginheight="0" marginwidth="0" width="100%" @load="vueFunc"></iframe>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
         setTimeout(() => {
           let autoHeight = document.documentElement.scrollHeight
           this.$refs.iframe.style.minHeight = autoHeight - 90 + "px"
-          this.loadedFlag = true
+          this.loadedFlag = true;
         }, 20);
       } catch (err) {
         　　console.log("vueFunc ");

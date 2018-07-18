@@ -4,7 +4,7 @@
 
       <div class="page page1 current">
         <div class="contain">
-
+            <el-button @click="login">登录</el-button>
         </div>
       </div>
 
@@ -57,7 +57,10 @@ export default {
   name: 'login',
   data() {
     return {
-
+      formData:{
+        account: 'admin',
+        pass: '123456'
+      }
     }
   },
   mounted (){
@@ -98,12 +101,16 @@ export default {
       });
     },
     initVidbg() {
-      //  vidbg(document.body, [
        vidbg(document.getElementById('login-wrapper'), [
           {src: 'http://cf.cdn.vid.ly/3l6g3m/webm.webm', type: 'webm'},
           {src: 'http://cf.cdn.vid.ly/3l6g3m/mp4.mp4', type: 'mp4'},
           {src: 'http://cf.cdn.vid.ly/3l6g3m/ogv.ogv', type: 'ogg'}
         ], true);
+    },
+    login() {
+      this.$store.dispatch('LOGIN',this.formData).then(() => {
+              this.$router.push({path:'/home'})
+      })
     }
   }
 }

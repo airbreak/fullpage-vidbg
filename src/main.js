@@ -10,6 +10,7 @@ import 'animate.css'
 import 'vue-fullpage/vue-fullpage.css'
 import '@/styles/index.scss'
 import VueFullpage from 'vue-fullpage'
+import '@/permission'
 
 Vue.use(VueFullpage)
 

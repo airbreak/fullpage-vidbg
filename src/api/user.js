@@ -2,19 +2,21 @@ import request from '@/utils/request'
 
 export function doLogin (info) {
   return request({
-    url: '/login',
+    url: 'v1/login',
     method: 'post',
-    data: {
+    data: JSON.stringify({
       account: info.account,
       pass: info.pass
-    }
+    })
   })
 }
 
 export function getInfo (token) {
   return request({
-    url: '/v1/userinfo',
-    method: 'get',
-    params: { token }
+    url: '/v1/user_info',
+    method: 'post',
+    data: JSON.stringify({
+      token: token
+    })
   })
 }

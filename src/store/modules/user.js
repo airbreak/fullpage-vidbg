@@ -36,6 +36,10 @@ const actions = {
           commit('SET_ROLES', info.roles)
         }
         commit('SET_NAME', info.name)
+        commit('SET_AVATAR', info.avatar)
+        resolve(res)
+      }).catch(error => {
+        reject(error)
       })
     })
   },
