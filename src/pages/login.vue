@@ -4,7 +4,7 @@
 
       <div class="page page1 current">
         <div class="contain">
-            <el-button @click="login">登录</el-button>
+            <el-button @click="showLoginModal">登录</el-button>
         </div>
       </div>
 
@@ -46,6 +46,29 @@
       <li>4</li>
       <li>5</li>
     </ul>
+    <transition name="fade" mode="out-in">
+      <div v-if="loginModalFlag" class="login-modal">
+        <div class="login-box">
+          <el-form
+            :model="formData"
+            status-icon
+            :rules="rules"
+            ref="loginForm"
+            label-width="100px" class="demo-ruleForm">
+            <el-form-item label="用户名" prop="account">
+              <el-input v-model="formData.account" auto-complete="false"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="pass">
+              <el-input v-model="formData.pass" auto-complete="false" type="password"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="login('loginForm')">登录</el-button>
+              <el-button type="primary" @click="close()">关闭</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -60,7 +83,18 @@ export default {
       formData:{
         account: 'admin',
         pass: '123456'
-      }
+      },
+      rules: {
+        account: [
+          {required: true, message:'请输入账号', trigger:'blur'},
+          {min: 3, max:10, message: '长度在3 - 10个字符', trigger: 'blur'}
+        ],
+        pass: [
+          {required: true, message:'请输入密码', trigger:'blur'},
+          {min: 3, max:10, message: '长度在3 - 10个字符', trigger: 'blur'}
+        ]
+      },
+      loginModalFlag:false
     }
   },
   mounted (){
@@ -107,31 +141,29 @@ export default {
           {src: 'http://cf.cdn.vid.ly/3l6g3m/ogv.ogv', type: 'ogg'}
         ], true);
     },
-    login() {
-      this.$store.dispatch('LOGIN',this.formData).then(() => {
-              this.$router.push({path:'/home'})
+    showLoginModal() {
+      this.loginModalFlag = true
+    },
+    login(formName) {
+       this.$refs[formName].validate((valid)=>{
+        if(valid) {
+          this.$store.dispatch('LOGIN',this.formData).then(() => {
+            this.$router.push({path:'/home'})
+          })
+        }
       })
+    },
+    close() {
+      this.loginModalFlag = false
     }
   }
 }
 </script>
 
 <style scoped>
-  html {
-    -ms-touch-action: none;  /* 阻止windows Phone 的默认触摸事件 */
-    }
-    body,
-    div,
-    p {
-    	margin: 0;
-    	padding: 0;
-    }
-    ul {
-        list-style: none;
-    }
-    body {
+  body {
     	width: 100%;
-        *cursor: default;
+      *cursor: default;
     	overflow: hidden;
     	font: 16px/1.5 "Microsoft YaHei",Helvetica,STHeiti STXihei,Microsoft JhengHei,Arial;
     }
@@ -244,4 +276,35 @@ export default {
         transform: rotate(360deg) translate(0,-200px) scale(.3);
         opacity: 0;
     }
+
+    .login-modal{
+      position: fixed;
+      z-index: 99999;
+      left:0;
+      top:0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0,0,0,0.7);
+
+    }
+     .login-box{
+        position: absolute;
+        top: 50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        height: 350px;
+        width: 500px;
+        background-color: #fff;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+      }
+      .fade-enter-active, .fade-leave-active {
+        transition: opacity .3s;
+      }
+      .fade-enter, .fade-leave-to {
+        opacity: 0;
+      }
 </style>

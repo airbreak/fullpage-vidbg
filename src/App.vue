@@ -23,6 +23,9 @@ export default {
 </script>
 
 <style>
+html {
+  -ms-touch-action: none;  /* 阻止windows Phone 的默认触摸事件 */
+}
 body {
   margin: 0;
   padding: 0;
@@ -34,5 +37,8 @@ body {
   left: 0;
   right: 0;
   overflow: hidden;
+}
+ul {
+    list-style: none;
 }
 </style>
